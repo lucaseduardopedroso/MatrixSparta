@@ -9,18 +9,20 @@
 ## Thaise Nakao					  ##
 #####################################
 */
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct node{
+typedef struct no{
 	int linha;
 	int coluna;
 	int valor;
-	struct node* direita;
-	struct node* baixo;	
-}Node;
+	struct no* direita;
+	struct no* baixo;	
+}No;
 
 typedef struct{
-	Node** linhas;	//ponteiro para o vetor cujas células são ponteiros de nós
-	Node** colunas;	//ponteiro para o vetor cujas células são ponteiros de nós
+	No** linhas;	//ponteiro para o vetor cujas células são ponteiros de nós
+	No** colunas;	//ponteiro para o vetor cujas células são ponteiros de nós
 	int numLinhas;	//Quantidade de linhas da matriz
 	int numColunas;	//Quantidade de colunas da matriz
 }Matriz;
@@ -36,8 +38,8 @@ void ler(char* arquivo, Matriz* m);
 
 /* Implementação */
 
-Node* createNode(int valor) {
-	Node* n = (Node*) malloc(sizeof(Node));
+No* createNo(int valor) {
+	No* n = (No*) malloc(sizeof(No));
 	n->linha = 0;
 	n->coluna = 0;
 	n->valor = valor;
@@ -52,10 +54,10 @@ Node* createNode(int valor) {
 Matriz* matriz_criar(int qtdeLinhas, int qtdeColunas) {
 
 	Matriz* m = (Matriz*) malloc(sizeof(Matriz));
-	m->numLinhas = 0;
-	m->numColunas = 0;
-	m->linhas = (Node**) malloc (sizeof(Node*));
-	m->colunas = (Node**) malloc(sizeof(Node*));
+	m->numLinhas = qtdeLinhas;
+	m->numColunas = qtdeColunas;
+	m->linhas = (No**) malloc (sizeof(No*));
+	m->colunas = (No**) malloc(sizeof(No*));
 
 	return m;
 }
@@ -63,7 +65,7 @@ Matriz* matriz_criar(int qtdeLinhas, int qtdeColunas) {
 // Insere o <valor> na matriz <m> na linha <linha> e coluna <coluna>. Caso a posição já exista, substitua o valor da célula.
 int matriz_inserir(Matriz* m, int linha, int coluna, int valor) {
 
-	Node* novo;
+	No* novo;
 	novo->linha = linha;
 	novo->coluna = coluna;
 	novo->valor = valor;
