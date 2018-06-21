@@ -34,10 +34,10 @@ No* createNo(int valor, int linha, int coluna) {
 	n->linha = linha;
 	n->coluna = coluna;
 	n->valor = valor;
-	n->direita = n->direita;
-	n->esquerda = n->esquerda;
-	n->cima = n->cima;
-	n->baixo = n->baixo;
+	n->direita = n;
+	n->esquerda = n;
+	n->cima = n;
+	n->baixo = n;
 
 
 	return n;
@@ -58,7 +58,7 @@ Matriz* matriz_criar(int qtdeLinhas, int qtdeColunas) {
 
 	for (i = 0; i < qtdeLinhas; i++)
 	{
-		m->linhas[i] = createNo(0, i, 0);
+		m->linhas[i] = createNo(0, i, 0); // preencher com 0
 	}
 
 	for (i = 0; i < qtdeColunas; i++)
@@ -71,8 +71,49 @@ Matriz* matriz_criar(int qtdeLinhas, int qtdeColunas) {
 
 }
 
+No* getEnderecoNo(Matriz* m, int pos){
+
+    int i = 1;
+    No* aux = l->primeiro;
+    while(i <= pos){
+        aux = aux->prox;
+        i++;
+    }
+    return aux;
+}
+
+
+
 // Insere o <valor> na matriz <m> na linha <linha> e coluna <coluna>. Caso a posição já exista, substitua o valor da célula.
-int matriz_inserir(Matriz* m, int linha, int coluna, int valor);
+int matriz_inserir(Matriz* m, int linha, int coluna, int valor) {
+
+	if (!m)
+	{
+		return -1;
+	}
+
+	No* novo = createNo(valor, linha, coluna);
+	No* aux = getPosicaoLinha(m->linhas[linha], st, coluna);
+			// getPosicaoColuna(m->colunas[coluna], st, linha)
+
+
+
+
+	/* inserir na linha */
+	//inserirNaLinha(m, linha, novo);
+	novo->direita = aux->direita;
+	novo->esquerda = aux;
+	aux->direita->esquerda = novo;
+	aux->direita = novo;
+	/* Inserir na coluna */
+	//inserirNaColuna(m, coluna, novo);
+	novo->baixo = aux->baixo;
+	novo->cima = aux;
+	aux->baixo->cima = novo;
+	aux->baixo = novo;
+
+	return 1;
+}
 
 // Devolve o valor correspondente a linha e coluna solicitada. Faça a validação dos índices. Caso a posição solicitada esteja fora do intervalo, devolva zero.
 int matriz_acessar(Matriz* m, int linha, int coluna);
