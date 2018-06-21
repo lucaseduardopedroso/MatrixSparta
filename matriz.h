@@ -38,8 +38,9 @@ void desalocar(Matriz* m);
 
 No* createNo(int valor) {
 	No* n = (No*) malloc(sizeof(No));
-	n->linha = 0;
+	n->linha = qtdeLinhas;
 	n->coluna = 0;
+	n->linha = 0;
 	n->valor = valor;
 	n->direita = NULL;
 	n->baixo = NULL;
@@ -55,8 +56,26 @@ Matriz* matriz_criar(int qtdeLinhas, int qtdeColunas) {
 	m->numLinhas = qtdeLinhas;
 	m->numColunas = qtdeColunas;
 
-	m->linhas = (No**) malloc (sizeof(No*));
-	m->colunas = (No**) malloc(sizeof(No*));
+
+	m->linhas = (No**) malloc (qtdeColunas* sizeof(No*));
+	m->colunas = (No**) malloc(qtdeLinhas* sizeof(No*));
+
+	int i, j;
+
+	for (i = 0; i < m->qtdeLinhas; i++)
+	{
+
+		for (j = 0; j < m->qtdeColunas; j++)
+		{
+	
+
+		m->linhas[i] = m->linhas[i] = NULL;
+
+		}
+
+	}
+
+
 
 	return m;
 }
@@ -64,10 +83,10 @@ Matriz* matriz_criar(int qtdeLinhas, int qtdeColunas) {
 // Insere o <valor> na matriz <m> na linha <linha> e coluna <coluna>. Caso a posição já exista, substitua o valor da célula.
 int matriz_inserir(Matriz* m, int linha, int coluna, int valor) {
 
-	No* novo;
+	No* novo = createNo(valor);
 	novo->linha = linha;
 	novo->coluna = coluna;
-	novo->valor = valor;
+	
 
 	//m[m->linhas[novo->linha] * m->numColunas + m->colunas[novo->coluna]] = novo;
 
@@ -82,33 +101,35 @@ int matriz_acessar(Matriz* m, int linha, int coluna);
 // Imprime os valores da matriz na tela. Cada linha deve ser impressa em uma linha diferente e os elementos separados por espaço ou tabulação. Os elementos não representados na matriz (valor zero), também devem ser impressos.
 void matriz_imprimir(Matriz* m) {
 
-	int l, c;
+No* aux;
+	int l,c;
+	for(l=0; l < m->numLinhas; l++){
+		aux = m->linhas[l];
+		for(c = 0; c < m->numColunas; c++){
+			// if(aux != NULL){
+			// 	if(c == aux->coluna){
+			// 		printf("%d ", aux->valor);				
+			// 		aux = aux->direita;
+			// 	}else{
+			// 		printf("%d ", 0);
+			// 	}
+			// }else{
+			// 	printf("%d ", 0);
+			// }
 
-	No* aux;
-
-	for (l = 0; l < m->numLinhas; l++)
-	{
-
-		aux = m->linhas[l]; // Acessa o primeiro elemento da lista
-
-		for (c = 0; c < m->numColunas; c++)
-
-		{   if (aux!= NULL && c == aux->coluna) {
-
-				
-					printf("%d", aux->valor);
+			
+				if(aux != NULL && c == aux->coluna){
+					printf("%d ", aux->valor);				
 					aux = aux->direita;
+				}else{
+					printf("%d ", 0);
 				}
-				else {
-				
-				printf("%d ", 0);
 			}
-		
-		}
 
-		printf("\n");
+		}
+		printf("\n ", 0);
 	}
-}
+
 
 // Libera toda memória alocada dinamicamente para a matriz.
 void desalocar(Matriz* m);
