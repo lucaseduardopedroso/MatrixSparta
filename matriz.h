@@ -66,8 +66,9 @@ int matriz_inserir(Matriz* m, int linha, int coluna, int valor) {
 	Node* novo;
 	novo->linha = linha;
 	novo->coluna = coluna;
+	novo->valor = valor;
 
-	m[m->linhas[novo->linha] * m->numColunas + m->colunas[novo->coluna]] = valor;
+	m[m->linhas[novo->linha] * m->numColunas + m->colunas[novo->coluna]] = novo;
 
 
 	return 1;
