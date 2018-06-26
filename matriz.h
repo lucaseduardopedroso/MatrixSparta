@@ -67,7 +67,7 @@ Matriz* matriz_criar(int qtdeLinhas, int qtdeColunas) {
 
 int InserirNaLinha(Matriz* m, int linha, No* novo){
     if((m == NULL) || (linha>m->numLinhas) || (linha<0)){
-        return NULL;
+        return -1;
     }
 
     int i = 0;
@@ -87,7 +87,7 @@ int InserirNaLinha(Matriz* m, int linha, No* novo){
 
 int InserirNaColuna(Matriz* m, int coluna, No* novo){
     if((m == NULL) || (coluna>m->numColunas) || (coluna<0)){
-        return NULL;
+        return -1;
     }
 
     int i = 0;
