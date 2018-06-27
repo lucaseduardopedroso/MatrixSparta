@@ -13,6 +13,7 @@
 //Esta funcionando com as matrizes 4x4, para funcionar nas demais, deve-se alterar o contador "i" das funções InserirNaLinha/InserirNaColuna
 
 typedef struct no{
+
 	int linha;
 	int coluna;
 	int valor;
@@ -20,16 +21,20 @@ typedef struct no{
 	struct no* esquerda;
 	struct no* cima;
 	struct no* baixo;
+
 }No;
 
 typedef struct{
+
 	No** linhas;	//ponteiro para o vetor cujas células são ponteiros de nós
 	No** colunas;	//ponteiro para o vetor cujas células são ponteiros de nós
 	int numLinhas;	//Quantidade de linhas da matriz
 	int numColunas;	//Quantidade de colunas da matriz
+
 }Matriz;
 
 No* createNo(int valor, int linha, int coluna) {
+
 	No* n = (No*) malloc(sizeof(No));
 	n->linha = linha;
 	n->coluna = coluna;
@@ -45,6 +50,7 @@ No* createNo(int valor, int linha, int coluna) {
 
 // Cria uma matriz vazia e devolve seu endereço de memória.
 Matriz* matriz_criar(int qtdeLinhas, int qtdeColunas) {
+
     int i, j;
 
 	Matriz* m = (Matriz*) malloc(sizeof(Matriz));
@@ -66,6 +72,7 @@ Matriz* matriz_criar(int qtdeLinhas, int qtdeColunas) {
 }
 
 int InserirNaLinha(Matriz* m, int linha, No* novo){
+
     if((m == NULL) || (linha>m->numLinhas) || (linha<0)){
         return -1;
     }
@@ -86,6 +93,7 @@ int InserirNaLinha(Matriz* m, int linha, No* novo){
 }
 
 int InserirNaColuna(Matriz* m, int coluna, No* novo){
+	
     if((m == NULL) || (coluna>m->numColunas) || (coluna<0)){
         return -1;
     }
@@ -144,4 +152,21 @@ void matriz_imprimir(Matriz* m){
 		}
 		printf("\n", 0);
 	}
+}
+
+void desalocar_matriz(Matriz* m) {
+
+	int i, j;
+
+	for(i=0; i<qtdeLinhas; i++){
+        free(m->linhas[i]);
+	}
+
+	for(j=0; j<qtdeColunas; j++){
+		free(m->colunas[j]); 
+	}
+
+	free(m);
+
+
 }
