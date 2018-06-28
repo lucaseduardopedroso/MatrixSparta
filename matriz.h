@@ -119,8 +119,7 @@ int matriz_inserir(Matriz* m, int linha, int coluna, int valor) {
 	No* novo = createNo(valor, linha, coluna);
 	InserirNaLinha(m, linha, novo);
 	InserirNaColuna(m, coluna, novo);
-	int matriz_inserir(Matriz* m, int linha, int coluna, int valor);
-
+	
 	return 1;
 
 }
